@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Employee - Employee Management System{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <a href="{% url 'employee_list' %}" class="back-link">&larr; Back to List</a>
+    <h2>Delete Employee</h2>
+</div>
+
+<div class="confirm-card">
+    <div class="confirm-message">
+        <h3>Are you sure?</h3>
+        <p>You are about to delete the employee record:</p>
+        <div class="employee-summary">
+            <p><strong>Name:</strong> {{ employee.emp_name }}</p>
+            <p><strong>ID:</strong> {{ employee.emp_id }}</p>
+            <p><strong>Role:</strong> {{ employee.emp_role }}</p>
+        </div>
+        <p class="warning">This action cannot be undone.</p>
+    </div>
+
+    <form method="post" class="confirm-form">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-delete">Yes, Delete Employee</button>
+        <a href="{% url 'employee_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Employee List - Employee Management System{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Employee Directory</h2>
+    <p class="subtitle">Total Employees: <strong>{{ total_employees }}</strong></p>
+</div>
+
+{% if employees %}
+<div class="table-container">
+    <table class="employee-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Location</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr class="table-row">
+                <td>{{ employee.emp_id }}</td>
+                <td><strong>{{ employee.emp_name }}</strong></td>
+                <td>{{ employee.emp_role }}</td>
+                <td>{{ employee.emp_loc }}</td>
+                <td>{{ employee.emp_ph_no }}</td>
+                <td class="actions">
+                    <a href="{% url 'employee_detail' employee.emp_id %}" class="btn btn-view">View</a>
+                    <a href="{% url 'employee_update' employee.emp_id %}" class="btn btn-edit">Edit</a>
+                    <a href="{% url 'employee_delete' employee.emp_id %}" class="btn btn-delete">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <p>No employees found. <a href="{% url 'employee_create' %}">Add the first employee</a></p>
+</div>
+{% endif %}
+{% endblock %}
